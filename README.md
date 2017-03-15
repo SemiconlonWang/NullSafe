@@ -69,3 +69,11 @@ Version 1.1
 Version 1.0
 
 - Initial release
+
+把发送给NSNull的而NSNull又无法处理的消息经过如下几步处理：
+
+创建一个方法缓存，这个缓存会缓存项目中类的所有类名。
+遍历缓存，寻找是否已经有可以执行此方法的类。
+如果有的话，返回这个NSMethodSignature。
+如果没有的话，返回nil,接下来会走forwardInvocation:方法。
+[invocation invokeWithTarget:nil];将消息转发给nil。
